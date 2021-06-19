@@ -1,22 +1,31 @@
-export const MyDialog = (props: any) => {
-  const { dialogId } = props;
-  const closeDialog = (event): void => {};
+import ReactModal from 'react-modal';
+
+interface Props {
+  isOpen: boolean;
+  onClose?: () => void;
+}
+
+export const MyDialog = (props: Props) => {
+  const { isOpen, onClose } = props;
+
+  const handleClose = () => {
+    onClose?.();
+  }
   return (
     <>
-      <dialog id={dialogId}>
+      <ReactModal
+        isOpen={isOpen}
+        onRequestClose={handleClose}>
         ダイアログだよーん
         <br />
         <button
-          onClick={() => closeDialog}
+          onClick={() => handleClose()}
           className="close-dialog"
           type="button"
         >
           close dialog
         </button>
-      </dialog>
-      <button className="open-dialog" type="button">
-        open dialog
-      </button>
+      </ReactModal>
     </>
   );
 };
